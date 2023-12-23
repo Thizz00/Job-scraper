@@ -118,12 +118,6 @@ class JobScraper:
                         operating_mode_text = ','.join(
                             [i.text.replace('\n', ' ') for i in operating_mode])
 
-                        # information_about_the_offer_text = information_about_the_offer_text.split(',')
-                        # employment_Type_text = information_about_the_offer_text[0]
-                        # experience_text = information_about_the_offer_text[1]
-                        # type_of_work_text = information_about_the_offer_text[2]
-                    # operating_mode_text = information_about_the_offer_text[3]
-
                 job_description_classes_to_search = ['tw-overflow-hidden ng-star-inserted',
                                                      'css-ncc6e2', 'MuiBox-root css-n74wde',
                                                      'MuiBox-root css-j1eof']
