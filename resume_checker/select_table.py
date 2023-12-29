@@ -6,7 +6,7 @@ from database.database_operations import initialize_database
 
 def get_technologies_from_database():
     engine, session = initialize_database()
-    query = "SELECT Tech_stack FROM job_offers"
+    query = "SELECT link,tech_stack FROM job_offers"
     df = pd.read_sql(query, engine)
 
     tech = df

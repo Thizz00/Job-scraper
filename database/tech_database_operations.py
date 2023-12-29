@@ -42,8 +42,9 @@ def add_data_to_database(session, df):
 
 def create_job_offer_instance(row):
     return TechTools(
-        tech_stack=row['Tech'],
-        category=row['Category']
+        link = row['link'][0],
+        tech_stack=row['tech_stack'],
+        matched=row['matched']
     )
 
 def create_log_entry(job_offer):
