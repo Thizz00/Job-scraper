@@ -16,4 +16,4 @@ class JobOffer(Base):
     operating_mode = Column(Text)
     job_description = Column(Text)
     application_form = Column(Text)
-    scraping_date = Column(Text)
+    scraping_date = Column(Text) 
