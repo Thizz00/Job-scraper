@@ -65,7 +65,7 @@ class JobScraper:
                             [i.text.replace('\n', ' ') for i in salary])
                         break
 
-                tech_stack_classes_to_search = ['mb-0 ng-star-inserted',
+                tech_stack_classes_to_search = [
                                                 'MuiChip-label MuiChip-labelMedium css-9iedg7',
                                                 'MuiTypography-root MuiTypography-subtitle2 css-x1xnx3',
                                                 'tw-mb-0 tw-flex tw-flex-wrap ng-star-inserted']
