@@ -73,6 +73,5 @@ class LinkProcessor:
             for future in concurrent.futures.as_completed(futures):
                 try:
                     future.result()
-                    time.sleep(0.5)
                 except Exception as e:
                     logging.error(f"Thread error: {str(e)}")
