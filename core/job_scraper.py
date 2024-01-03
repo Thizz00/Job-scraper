@@ -25,7 +25,7 @@ class JobScraper:
                     category = soup.find_all(class_=class_name)
                     if category:
                         category_text = ', '.join(
-                            [i.text.replace('\n', ' ').replace('new', '').strip().upper() for i in category])
+                            [i.text.replace('\n', ' ').replace('new', '').strip() for i in category])
                         break
 
                 offer_classes_to_search = ['css-vb54bv', 'css-g9dzcj','css-lr4g51', 'font-weight-bold']
@@ -34,7 +34,7 @@ class JobScraper:
                     offer = soup.find_all(class_=class_name)
                     if offer:
                         offer_text = ', '.join(
-                            [i.text.replace('\n', ' ').strip().upper() for i in offer])
+                            [i.text.replace('\n', ' ').strip() for i in offer])
                         break
 
                 name_classes_to_search = ['d-flex flex-grow-1 flex-column mobile-info',
@@ -47,7 +47,7 @@ class JobScraper:
                     name = soup.find_all(class_=class_name)
                     if name:
                         name_text = ', '.join(
-                            [i.text.replace('\n', ' ').strip().upper() for i in name])
+                            [i.text.replace('\n', ' ').strip() for i in name])
                         break
                 
                 salary_classes_to_search = ['salary ng-star-inserted',
@@ -58,7 +58,7 @@ class JobScraper:
                     salary = soup.find_all(class_=class_name)
                     if salary:
                         salary_text = ', '.join(
-                            [i.text.replace('\n', ' ').strip().upper() for i in salary])
+                            [i.text.replace('\n', ' ').strip() for i in salary])
                         break
 
 
@@ -73,7 +73,7 @@ class JobScraper:
                     tech_stack = soup.find_all(class_=class_name)
                     if tech_stack:
                         tech_stack_text = ', '.join(
-                            [i.text.replace('\n', ' ').strip().upper() for i in tech_stack])
+                            [i.text.replace('\n', ' ').strip() for i in tech_stack])
                         break
 
                 information_about_the_offer_to_search = [
@@ -121,7 +121,7 @@ class JobScraper:
                     job_description = soup.find_all(class_=class_name)
                     if job_description:
                         job_description_text = ', '.join(
-                            [i.text.replace('\n', ' ').strip().upper() for i in job_description])
+                            [i.text.replace('\n', ' ').strip() for i in job_description])
                         break
 
                 application_form_classes_to_search = ['MuiBox-root css-v0f58i']
@@ -135,19 +135,19 @@ class JobScraper:
                 scraping_date_text = datetime.now().strftime(
                         "%Y-%m-%d %H:%M:%S.%f")[:-4]
 
-                new_row = {'Category': category_text,
-                            'Link': link,
-                            'Offer': offer_text,
-                            'Company name': name_text,
-                            'Salary': salary_text,
-                            'Tech stack': tech_stack_text,
-                            'Type of work': type_of_work_text,
-                            'Experience': experience_text,
-                            'Employment Type': employment_Type_text,
-                            'Operating mode': operating_mode_text,
-                            'Job Description': job_description_text,
-                            'Application form': application_form_text,
-                            'Scraping date': scraping_date_text}
+                new_row = {'category': category_text,
+                            'link': link,
+                            'offer': offer_text,
+                            'company_name': name_text,
+                            'salary': salary_text,
+                            'tech_stack': tech_stack_text,
+                            'type_of_work': type_of_work_text,
+                            'experience': experience_text,
+                            'employment_type': employment_Type_text,
+                            'operating_mode': operating_mode_text,
+                            'job_description': job_description_text,
+                            'application_form': application_form_text,
+                            'scraping_date': scraping_date_text}
 
                 logging.info(f'Successful data scraping for a link: {link}')
                 return new_row

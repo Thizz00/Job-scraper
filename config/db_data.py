@@ -1,5 +1,3 @@
-from dotenv import load_dotenv
-import os
+from sqlalchemy.ext.declarative import declarative_base
 
-load_dotenv('.env')
-DATABASE_URL = os.getenv('DATABASE_URL')
+Base = declarative_base()
