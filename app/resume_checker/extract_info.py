@@ -4,9 +4,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from pdfminer.high_level import extract_text
 from geotext import GeoText
-from tech_data_preparing import tech_stack_list
-import pandas as pd
 from database.tech_database_operations import initialize_database, add_data_to_database
+
 
 def extract(url):
     try:
@@ -55,9 +54,3 @@ def add_data_to_db(df):
     add_data_to_database(session, df)
     session.close()
 
-    
-if __name__ == "__main__":
-    url = 'test.pdf'
-    df = process_tech_stack_list(url, tech_stack_list)
-    df = convert_list_to_str(df)
-    add_data_to_db(df)

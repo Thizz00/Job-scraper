@@ -1,7 +1,6 @@
-from select_table import get_technologies_from_database
+from resume_checker.select_table import get_technologies_from_database
 import pandas as pd
-import logging
-from database.tech_database_operations import initialize_database, add_data_to_database
+
 
 def get_technology_stack():
     df = pd.DataFrame(get_technologies_from_database())

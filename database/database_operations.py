@@ -4,8 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from pydantic import ValidationError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from config.db_data import Base
-from config.db_data import DATABASE_URL
+from config.db_data import Base, DATABASE_URL
 from config.db_logs import log_collection
 from models.joboffer import JobOffer
 from schemas.job_offer import JobOfferCreate

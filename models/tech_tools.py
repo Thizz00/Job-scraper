@@ -1,4 +1,4 @@
-from config.base import Base
+from config.db_data import Base
 from sqlalchemy import Column, Integer, Text, Boolean
 
 class TechTools(Base):
