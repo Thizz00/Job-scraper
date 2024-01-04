@@ -3,7 +3,8 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from database.database_operations import add_data_to_database, initialize_database
+from database.init_database import initialize_database
+from database.database_operations import add_data_to_database
 from core.job_scraper import JobScraper
 from core.link_processor import LinkProcessor
 from core.job_search_url_generator import URLS
@@ -11,7 +12,7 @@ from datetime import datetime
 import logging
 
 
-def configure_logging():
+def setup_logging():
     log_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
     if not os.path.exists(log_dir):
@@ -50,7 +51,7 @@ def add_data_to_db(df):
 
 
 if __name__ == '__main__':
-    configure_logging()
+    setup_logging()
     logging.info("Program starts at {}".format(datetime.now()))
 
     links = process_links()

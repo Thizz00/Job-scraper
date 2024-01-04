@@ -3,8 +3,9 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from database.init_database import initialize_database
 from core.job_search_url_generator import generate_all_urls
-from database.database_operations import add_data_to_database, initialize_database
+from database.database_operations import add_data_to_database
 from core.job_scraper import JobScraper
 from core.link_processor import LinkProcessor
 from apscheduler.triggers.interval import IntervalTrigger

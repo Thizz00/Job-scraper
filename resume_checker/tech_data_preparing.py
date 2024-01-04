@@ -7,10 +7,10 @@ def get_technology_stack():
     df = df.apply(lambda col: col.astype(str).str.split(','))
     return df
 
-def engineer(df):
+def update_tech_stack_column(df):
     df['tech_stack'] = df['tech_stack'].apply(lambda row: [tech.upper() for tech in row])
     return df
 
 tech_stack_list = get_technology_stack()
-tech_stack_list = engineer(tech_stack_list)
+tech_stack_list = update_tech_stack_column(tech_stack_list)
 

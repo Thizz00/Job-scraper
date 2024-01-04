@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import concurrent.futures
 import logging
-import time
 import os
 from dotenv import load_dotenv
 
