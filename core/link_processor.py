@@ -7,13 +7,13 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 
-SCRAP_LINK1 = os.getenv('SCRAP_LINK1')
-SCRAP_LINK2 = os.getenv('SCRAP_LINK2')
-SCRAP_LINK3 = os.getenv('SCRAP_LINK3')
-
 STR_LINK1 = os.getenv('STR_LINK1')
 STR_LINK2 = os.getenv('STR_LINK2')
 STR_LINK3 = os.getenv('STR_LINK3')
+
+SCRAP_LINK1 = 'https://' + STR_LINK1
+SCRAP_LINK2 = 'https://' + STR_LINK2 + '/'
+SCRAP_LINK3 = 'https://' + STR_LINK3
 
 
 class LinkProcessor:
