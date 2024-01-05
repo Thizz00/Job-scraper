@@ -12,7 +12,8 @@ def run_jobs(args):
             run_job(args.job)
             time.sleep(5)
             run_job(args.match)
-        run_job(args.job)
+        else:
+            run_job(args.job)
     elif args.job == 'job_scraper_scheduler':
         if args.interval is None or args.interval >= 90:
             run_job(args.job)
