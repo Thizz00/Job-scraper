@@ -4,8 +4,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from pdfminer.high_level import extract_text
 from geotext import GeoText
-from database.init_database import initialize_database
-from database.tech_database_operations import add_data_to_database
+from database.database_initializer import initialize_database
+from database.tech_tools_db_operations import add_data_to_database
 
 
 
@@ -17,12 +17,12 @@ def extract(url):
         print(f"Error extracting text from PDF: {e}")
         sys.exit(1)
 
-def plain_text(text):
-    return text
-
+''' Future feature
 def extract_city(text):
-    places = GeoText(plain_text(text))
+    places = GeoText(extract(text))
     return(places.cities)
+
+'''
 
 def check_match(tech_tools, result_list):
     tech_tools = set(tech_tools)
@@ -30,8 +30,7 @@ def check_match(tech_tools, result_list):
     return len(intersection) >= len(tech_tools) / 2
 
 def process_tech_stack_list(url, tech_stack_df):
-    extracted_text = extract(url)
-    text = plain_text(extracted_text)
+    text = extract(url)
 
     lines = text.splitlines()
 

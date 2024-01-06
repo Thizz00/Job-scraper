@@ -35,7 +35,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         '--match',
-        choices=['main_resume_matcher'],
+        choices=['resume_data_processor'],
         help='Specify the matching job to run after main_job_scraper'
     )
 

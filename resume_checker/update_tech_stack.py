@@ -1,4 +1,4 @@
-from resume_checker.select_table import get_technologies_from_database
+from resume_checker.data_fetcher import get_technologies_from_database
 import pandas as pd
 
 

@@ -3,26 +3,14 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from database.init_database import initialize_database
-from database.database_operations import add_data_to_database
+from database.database_initializer import initialize_database
+from database.job_offers_db_operations import add_data_to_database
+from Logs.logging_setup import initialize_logging
 from core.job_scraper import JobScraper
 from core.link_processor import LinkProcessor
 from core.job_search_url_generator import URLS
 from datetime import datetime
 import logging
-
-
-def setup_logging():
-    log_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-
-    log_file = os.path.join(log_dir, 'Logs/logs.txt')
-
-    logging.basicConfig(filename=log_file, level=logging.INFO,
-                        format='%(asctime)s - %(levelname)s - %(message)s')
-
 
 def process_links():
     logging.info("Module 1: Link Processing")
@@ -51,7 +39,7 @@ def add_data_to_db(df):
 
 
 if __name__ == '__main__':
-    setup_logging()
+    initialize_logging()
     logging.info("Program starts at {}".format(datetime.now()))
 
     links = process_links()

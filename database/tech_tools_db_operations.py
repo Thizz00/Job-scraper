@@ -3,7 +3,7 @@ import sys
 import logging
 from config.db_logs import log_collection
 from models.tech_tools import TechTools
-from database.init_database import handle_database_error
+from database.database_initializer import handle_database_error
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
