@@ -2,7 +2,6 @@ import streamlit as st
 import subprocess
 import os
 import time
-import streamlit as st
 import logging
 import os
 import sys
@@ -51,7 +50,7 @@ if st.button("Run Job"):
             'interval': interval,
             'match': match_job if job_name == 'main_job_scraper' else None
         }
-    with st.status("Downloading data...", expanded=True) as status:
+    with st.status("Downloading data...", expanded=False) as status:
         run_jobs(args)
         status.update(label="Download complete!", state="complete", expanded=False)
 
