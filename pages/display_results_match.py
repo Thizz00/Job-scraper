@@ -3,7 +3,6 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from resume_checker.data_fetcher import get_technologies_from_database
 from Logs.logging_setup import initialize_logging
 from database.database_initializer import initialize_database
 import pandas as pd
