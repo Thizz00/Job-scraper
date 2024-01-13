@@ -90,7 +90,6 @@ if __name__ == '__main__':
     parser.add_argument('--interval', type=int, default=90)
 
     args = parser.parse_args()
-
     initialize_logging()
     logging.info("Program starts at {}".format(datetime.now()))
     initialize()

@@ -14,6 +14,3 @@ class JobOfferCreate(BaseModel):
     job_description: list[str] | str 
     application_form: str
     scraping_date: str
-
-    class Config:
-        orm_mode = True

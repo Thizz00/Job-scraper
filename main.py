@@ -1,43 +1,36 @@
-import argparse
+import streamlit as st
 import subprocess
-import os
-import time 
 
-def run_job(job_name):
-    subprocess.run(["python", os.path.join("app", f"{job_name}.py")])
+st.set_page_config(layout="wide")
+st.sidebar.markdown("# Job scraper 🎈")
 
-def run_jobs(args):
-    if args.job == 'main_job_scraper':
-        if args.match:
-            run_job(args.job)
-            time.sleep(5)
-            run_job(args.match)
-        else:
-            run_job(args.job)
-    elif args.job == 'job_scraper_scheduler':
-        if args.interval is None or args.interval >= 90:
-            run_job(args.job)
-    else:
-        print("Use main_job_scraper or job_scraper_scheduler.")
+st.header("Job scraper")
+job_name = st.selectbox("Select job to run:", ['main_job_scraper', 'job_scraper_scheduler','resume_data_processor'])
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--job',
-        choices=['main_job_scraper', 'job_scraper_scheduler'],
-        default='main_job_scraper',
-        help='Specify the job to run'
-    )
-    parser.add_argument(
-        '--interval',
-        type=int,
-        help='Specify the interval for job_scraper_scheduler'
-    )
-    parser.add_argument(
-        '--match',
-        choices=['resume_data_processor'],
-        help='Specify the matching job to run after main_job_scraper'
-    )
+interval = None  
+match_job = None 
 
-    args = parser.parse_args()
-    run_jobs(args)
+if job_name == 'main_job_scraper':
+    match_job = st.selectbox("Select matching job for main_job_scraper or None:", ['resume_data_processor', None], key="match_job")
+elif job_name == 'job_scraper_scheduler':
+    interval = st.number_input("Enter interval for job_scraper_scheduler (in minutes):", min_value=90, value=90)
+
+run_button = st.button("Run Job")
+
+if run_button:
+    with st.status("Job enabled.", expanded=False) as status:
+        try:
+            if job_name == 'main_job_scraper' and match_job  ==  None:
+                subprocess.run(["python", "app/main_job_scraper.py"])
+
+            elif job_name == 'main_job_scraper' and match_job == 'resume_data_processor':
+                subprocess.run(["python", "app/main_job_scraper.py", "--match resume_data_processor"])
+
+            elif job_name == 'job_scraper_scheduler':
+                subprocess.run(["python", "app/job_scraper_scheduler.py", "--interval", str(interval)])
+
+            elif job_name == 'resume_data_processor':
+                subprocess.run(["python", "app/resume_data_processor.py"])
+        except Exception as e:
+            st.write(f"Error {str(e)}")
+        status.update(label="Job successfully completed!", state="complete", expanded=False)
