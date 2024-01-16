@@ -7,6 +7,7 @@ from config.db_logs import log_collection
 from models.job_offer import JobOffer
 from schemas.job_offer_schema import JobOfferCreate
 import logging
+from Logs.mongodb_logs import create_log_entryJobOffers
 
 
 def add_data_to_database(session, df):
@@ -23,11 +24,14 @@ def add_data_to_database(session, df):
             existing_offer = session.query(JobOffer).filter_by(link=new_job_offer.link).first()
             
             if existing_offer:
-                update_existing_offer(session, existing_offer, new_job_offer)
+                update_existing_offer(existing_offer, new_job_offer)
+                logging.info(f"Updated existing job offer in the database: {existing_offer.link}")
+                log_entry = create_log_entryJobOffers(existing_offer)
+                log_collection.insert_one(log_entry)
             else:
                 session.add(new_job_offer)
                 logging.info(f"Inserted new job offer into the database: {new_job_offer.link}")
-                log_entry = create_log_entry(new_job_offer)
+                log_entry = create_log_entryJobOffers(new_job_offer)
                 log_collection.insert_one(log_entry)
 
         session.commit()
@@ -54,7 +58,7 @@ def create_job_offer_instance(job_offer_data):
         scraping_date=job_offer_data.scraping_date
     )
 
-def update_existing_offer(session, existing_offer, new_job_offer):
+def update_existing_offer(existing_offer, new_job_offer):
     columns_to_update = [
         'category', 'offer', 'company_name', 'salary',
         'tech_stack', 'type_of_work', 'experience',
@@ -62,24 +66,9 @@ def update_existing_offer(session, existing_offer, new_job_offer):
         'application_form', 'scraping_date'
     ]
 
-    differences_found = False 
-
     for column in columns_to_update:
         existing_value = getattr(existing_offer, column)
         new_value = getattr(new_job_offer, column)
 
         if existing_value != new_value:
-            differences_found = True
             setattr(existing_offer, column, new_value)
-
-    if differences_found:
-        logging.info(f"Updated existing job offer in the database: {existing_offer.link}")
-        log_entry = create_log_entry(existing_offer)
-        log_collection.insert_one(log_entry)
-
-def create_log_entry(job_offer):
-    entry = {'level': 'Success'}
-    for column in JobOffer.__table__.columns:
-        entry[column.name] = str(getattr(job_offer, column.name))
-    return entry
-

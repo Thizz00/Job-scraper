@@ -27,6 +27,7 @@ class JobScraper:
                         category_text = ', '.join(
                             [i.text.replace('\n', ' ').replace('new', '').strip() for i in category])
                         break
+        
 
                 offer_classes_to_search = ['css-vb54bv', 'css-g9dzcj','css-lr4g51', 'font-weight-bold']
                 offer_text = 'No data'
@@ -49,7 +50,8 @@ class JobScraper:
                         name_text = ', '.join(
                             [i.text.replace('\n', ' ').strip() for i in name])
                         break
-                
+
+
                 salary_classes_to_search = ['salary ng-star-inserted',
                                                 'css-j7qwjs',
                                                 'css-1xgztmx']
@@ -60,7 +62,6 @@ class JobScraper:
                         salary_text = ', '.join(
                             [i.text.replace('\n', ' ').strip() for i in salary])
                         break
-
 
 
                 tech_stack_classes_to_search = [
@@ -75,6 +76,7 @@ class JobScraper:
                         tech_stack_text = ', '.join(
                             [i.text.replace('\n', ' ').strip() for i in tech_stack])
                         break
+
 
                 information_about_the_offer_to_search = [
                         'css-hjfrjb', 'css-8n1acl']
@@ -96,7 +98,7 @@ class JobScraper:
                                                                         .replace('Operating mode', '') for i in information_about_the_offer])
                         information_about_the_offer_text = information_about_the_offer_text.split(
                                 ',')
-                        experience_text = information_about_the_offer_text[1]
+                        experience_text = information_about_the_offer_text[1].replace('back to list','').replace('powrót do listy','')
                         type_of_work_text = information_about_the_offer_text[0]
                         employment_Type_text = information_about_the_offer_text[2]
                         operating_mode_text = information_about_the_offer_text[-1]
@@ -107,7 +109,7 @@ class JobScraper:
                     experience = soup.find_all(class_='d-flex align-items-center')
                     if experience:
                         experience_text = ','.join(
-                            [i.text.replace('\n', ' ') for i in experience])
+                            [i.text.replace('\n', ' ').replace('back to list','').replace('powrót do listy','') for i in experience])
                     operating_mode = soup.find_all(class_='tw-flex tw-items-center tw-w-full')
                     if operating_mode:
                         operating_mode_text = ','.join(
@@ -123,6 +125,7 @@ class JobScraper:
                         job_description_text = ', '.join(
                             [i.text.replace('\n', ' ').strip() for i in job_description])
                         break
+
 
                 application_form_classes_to_search = ['MuiBox-root css-v0f58i']
                 application_form_text = 'External link'
@@ -146,7 +149,7 @@ class JobScraper:
                             'employment_type': employment_Type_text,
                             'operating_mode': operating_mode_text,
                             'job_description': job_description_text,
-                            'application_form': application_form_text,
+                            'application_form': application_form_text ,
                             'scraping_date': scraping_date_text}
 
                 logging.info(f'Successful data scraping for a link: {link}')

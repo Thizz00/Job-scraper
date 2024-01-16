@@ -30,14 +30,14 @@ def scrape_jobs(links):
     return df
 
 
-def add_data_to_db(df):
+def add_data_to_db1(df):
     engine, session = initialize_database()
     logging.info("Module 3: Adding data to the database")
     add_data_to_database(session, df)
     session.close()
     logging.info("Database completed.")
 
-
+'''
 if __name__ == '__main__':
     initialize_logging()
     logging.info("Program starts at {}".format(datetime.now()))
@@ -47,3 +47,4 @@ if __name__ == '__main__':
     add_data_to_db(df)
 
     logging.info("Program execution completed at {}".format(datetime.now()))
+'''

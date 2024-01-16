@@ -1,11 +1,11 @@
 import os
 import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import logging
 from config.db_logs import log_collection
+from Logs.mongodb_logs import create_log_entryTechTools
 from models.tech_tools import TechTools
 from database.database_initializer import handle_database_error
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def add_data_to_database(session, df):
     try:
@@ -14,11 +14,15 @@ def add_data_to_database(session, df):
             existing_offer = session.query(TechTools).filter_by(link=new_job_offer.link).first()
 
             if existing_offer:
-                update_existing_offer(session, existing_offer, new_job_offer)
+                update_existing_offer(existing_offer, new_job_offer)
+                logging.info(f"Updated existing job offer in the database: {existing_offer.link}")
+                log_entry = create_log_entryTechTools(existing_offer)
+                log_collection.insert_one(log_entry)
+
             else:
                 session.add(new_job_offer)
                 logging.info(f"Inserted new job offer into the database: {new_job_offer.link}")
-                log_entry = create_log_entry(new_job_offer)
+                log_entry = create_log_entryTechTools(new_job_offer)
                 log_collection.insert_one(log_entry)
 
         session.commit()
@@ -35,27 +39,12 @@ def create_job_offer_instance(row):
         matched=row['matched']
     )
 
-def update_existing_offer(session, existing_offer, new_job_offer):
+def update_existing_offer(existing_offer, new_job_offer):
     columns_to_update = ['tech_stack', 'matched']
-
-    differences_found = False 
 
     for column in columns_to_update:
         existing_value = getattr(existing_offer, column)
         new_value = getattr(new_job_offer, column)
 
         if existing_value != new_value:
-            differences_found = True
             setattr(existing_offer, column, new_value)
-
-    if differences_found:
-        logging.info(f"Updated existing job offer in the database: {existing_offer.link}")
-        log_entry = create_log_entry(existing_offer)
-        log_collection.insert_one(log_entry)
-
-def create_log_entry(job_offer):
-    entry = {'level': 'Success'}
-    for column in TechTools.__table__.columns:
-        entry[column.name] = str(getattr(job_offer, column.name))
-    return entry
-
