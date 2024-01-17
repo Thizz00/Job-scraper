@@ -27,6 +27,7 @@ Install requirements
 
 ## Structuring a repository
 
+```
 Job-scraper
 ├───CV
 ├───logs
@@ -42,7 +43,7 @@ Job-scraper
 │   ├───models
 │   └───schemas
 └───tests
-
+```
 
 
 ## Environment Variables
@@ -97,11 +98,13 @@ client = MongoClient(DATABASE_URL_LOGS, server_api=ServerApi('1'))
 mongo_db = client['Logs']
 log_collection = mongo_db['Logs_scraper']
 ```
-## Running a job and displaying data using streamlit
+## Streamlit dashboard
 
 ```bash
   streamlit run main.py
 ```
+
+## Running a job and displaying data using streamlit
 
 ![App Screenshot](/screenshots/streamlitapp.png)
 
