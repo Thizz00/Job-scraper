@@ -1,19 +1,30 @@
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
 import subprocess
 
 from Logs.logging_setup import initialize_logging
 from app.main_job_scraper import process_links,scrape_jobs,add_data_to_db1
-from app.resume_data_processor import process_tech_stack_list, convert_list_to_str, add_data_to_db, tech_stack_list, find_newest_file
+from resume_checker.update_tech_stack import tech_stack_list
+from resume_checker.text_extraction_utils import (
+    process_tech_stack_list,
+    convert_list_to_str,
+    add_data_to_db
+)
+from app.resume_data_processor import find_newest_file
 from datetime import datetime
 import logging
 
 st.set_page_config(layout="wide")
-st.sidebar.markdown("# Job scraper 🎈")
+st.sidebar.markdown("# Job scraper 📊")
 initialize_logging()
 
 with st.columns(3)[1]:
     st.header("Job scraper")
-    job_name = st.selectbox("Select job to run:", ['main_job_scraper', 'job_scraper_scheduler','resume_data_processor'])
+    job_name = st.selectbox("Select job to run:", ['main_job_scraper', 'job_scraper_scheduler'])
 
     interval = None  
     match_job = None 
@@ -28,7 +39,6 @@ with st.columns(3)[1]:
         if job_name == 'main_job_scraper' and match_job is None:
             with st.status("Job enabled.", expanded=True) as status:
                 try:
-                    initialize_logging()
                     logging.info("Program starts at {}".format(datetime.now()))
                     st.write("Process links ⏳")
                     links = process_links()
@@ -52,7 +62,6 @@ with st.columns(3)[1]:
         elif job_name == 'main_job_scraper' and match_job == 'resume_data_processor':
             with st.status("Job enabled.", expanded=True) as status:
                 try:
-                    initialize_logging()
                     logging.info("Program starts at {}".format(datetime.now()))
                     st.write("Process links ⏳")
                     links = process_links()
@@ -66,9 +75,8 @@ with st.columns(3)[1]:
                     add_data_to_db(df)
                     st.write("Add data to databases ✔️")
                                 
-
-                    PATH = find_newest_file('CV') 
                     st.write("Process resume data ⏳")
+                    PATH = find_newest_file('CV') 
                     try:
                         df = process_tech_stack_list(PATH, tech_stack_list)
                         df_str = convert_list_to_str(df)
@@ -86,12 +94,6 @@ with st.columns(3)[1]:
 
 
         elif job_name == 'job_scraper_scheduler':
-            with st.status("Job enabled.", expanded=True) as status:
+            with st.status("Job enabled.", expanded=False) as status:
                 subprocess.run(["python", "app/job_scraper_scheduler.py", "--interval", str(interval)])
-                status.update(label="Job successfully completed!", state="complete", expanded=False)
-
-
-        elif job_name == 'resume_data_processor':
-            with st.status("Job enabled.", expanded=True) as status:
-                subprocess.run(["python", "app/resume_data_processor.py"])
                 status.update(label="Job successfully completed!", state="complete", expanded=False)

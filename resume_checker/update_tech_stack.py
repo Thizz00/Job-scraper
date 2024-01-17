@@ -8,8 +8,9 @@ def get_technology_stack():
     return df
 
 def update_tech_stack_column(df):
-    df['tech_stack'] = df['tech_stack'].apply(lambda row: [tech.upper() for tech in row])
+    df['tech_stack'] = df['tech_stack'].apply(lambda row: [tech.upper().strip() for tech in row])
     return df
+
 
 tech_stack_list = get_technology_stack()
 tech_stack_list = update_tech_stack_column(tech_stack_list)

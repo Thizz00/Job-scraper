@@ -1,5 +1,6 @@
 from models.tech_tools import TechTools
 from models.job_offer import JobOffer
+
 def create_log_entryTechTools(job_offer):
     entry = {'level': 'Success'}
     for column in TechTools.__table__.columns:

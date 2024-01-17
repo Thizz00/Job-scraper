@@ -4,10 +4,10 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import streamlit as st
-from resume_checker.data_fetcher import get_technologies_from_database
+from resume_checker.data_fetcher import get_all_from_database
 from Logs.logging_setup import initialize_logging
 
-st.sidebar.markdown("# Display results ❄️")
+st.sidebar.markdown("# Display results 🎯")
 
 initialize_logging()
 
@@ -28,7 +28,9 @@ def contains_all_search_words(row, selected_search_words):
 
     return all(word in category_words or word in tech_stack_words for word in selected_search_words)
 
-df = get_technologies_from_database()
+
+
+df = get_all_from_database()
 search_words = prepare_df(df)
 
 if df is not None and not df.empty:
@@ -39,7 +41,7 @@ if df is not None and not df.empty:
     st.markdown("<h2 style='text-align: center;'>All job offers:</h2>", unsafe_allow_html=True)
 
     filtered_df = df[df.apply(contains_all_search_words, axis=1, selected_search_words=selected_search_words)]
-    
+
     st.data_editor(
         filtered_df,
         column_config={

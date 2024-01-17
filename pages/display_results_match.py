@@ -3,20 +3,13 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from resume_checker.data_fetcher import get_technologies_from_database
 import streamlit as st
 from Logs.logging_setup import initialize_logging
-from database.database_initializer import initialize_database
-import pandas as pd
 
-st.sidebar.markdown("# Display match results ❄️")
+st.sidebar.markdown("# Display match results ⚙️")
 
 initialize_logging()
-
-def get_technologies_from_database():
-    engine, session = initialize_database()
-    query = "SELECT * FROM tech_tools ORDER BY matched DESC"
-    df = pd.read_sql(query, engine)
-    return df
 
 df = get_technologies_from_database()
 

@@ -5,11 +5,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from database.database_initializer import initialize_database
 from database.job_offers_db_operations import add_data_to_database
-from Logs.logging_setup import initialize_logging
 from core.job_scraper import JobScraper
 from core.link_processor import LinkProcessor
 from core.job_search_url_generator import URLS
-from datetime import datetime
 import logging
 
 def process_links():
