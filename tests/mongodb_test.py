@@ -8,7 +8,6 @@ load_dotenv('.env')
 
 DATABASE_URL_LOGS = os.getenv('DATABASE_URL_LOGS')
 
-# Create a MongoDB client
 client = MongoClient(DATABASE_URL_LOGS, server_api=ServerApi('1'))
 
 def test_mongo_connection():

@@ -1,12 +1,9 @@
 import pytest
 from dotenv import load_dotenv
 import os
-import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from sqlalchemy import create_engine
-from config.base import Base
+
+from src.config.db_data import Base
 from sqlalchemy.orm import sessionmaker
 
 load_dotenv('.env')

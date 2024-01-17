@@ -1,15 +1,8 @@
-import os
-import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from resume_checker.data_fetcher import get_technologies_from_database
+from scripts.resume_checker.data_fetcher import get_technologies_from_database
 import streamlit as st
-from Logs.logging_setup import initialize_logging
 
 st.sidebar.markdown("# Display match results ⚙️")
 
-initialize_logging()
 
 df = get_technologies_from_database()
 

@@ -1,15 +1,8 @@
-import os
-import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 import streamlit as st
-from resume_checker.data_fetcher import get_all_from_database
-from Logs.logging_setup import initialize_logging
+from scripts.resume_checker.data_fetcher import get_all_from_database
 
 st.sidebar.markdown("# Display results 🎯")
 
-initialize_logging()
 
 def prepare_df(df):
     category_words = set(word.strip().upper() for word in df['category'] if word is not None)

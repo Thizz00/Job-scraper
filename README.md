@@ -14,7 +14,7 @@ In addition, it has the ability to match those offers which are most similar to 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/Thizz00/Job-scraper-0.0.1.git
 ```
 
 ## Installation
@@ -24,6 +24,24 @@ Install requirements
 ```bash
   pip install requirements.txt
 ```
+
+## Structuring a repository
+
+Job-scraper
+├───CV
+├───logs
+├───pages
+├───screenshots
+├───scripts
+│   ├───core
+│   └───resume_checker
+├───src
+│   ├───config
+│   ├───database
+│   ├───logs_configure
+│   ├───models
+│   └───schemas
+└───tests
 
 
 
@@ -79,7 +97,13 @@ client = MongoClient(DATABASE_URL_LOGS, server_api=ServerApi('1'))
 mongo_db = client['Logs']
 log_collection = mongo_db['Logs_scraper']
 ```
+## Running a job and displaying data using streamlit
 
+```bash
+  streamlit run main.py
+```
+
+![App Screenshot](/screenshots/streamlitapp.png)
 
 ## Command-Line option and argument parsing
 
@@ -87,19 +111,19 @@ If all you need is to display the scraped data in the database then:
 
 
 ```bash
-  python main.py --job main_job_scraper
+  python scripts/main_nostreamlit.py --job main_job_scraper
 ```
 
 if you need data scraping every so often:
 
 ```bash
-  python main.py --job job_scraper_scheduler --interval 90
+  python scripts/main_nostreamlit.py --job job_scraper_scheduler --interval 90
 ```
     
 If all you need is to display the scraped data in the database  and additionally extract those data that match your cv:
 
 ```bash
-  python main.py --job main_job_scraper --match main_resume_matcher
+  python scripts/main_nostreamlit.py --job main_job_scraper --match main_resume_matcher
 ```
     
 ## Additional information
