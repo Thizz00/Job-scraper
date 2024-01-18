@@ -2,18 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import concurrent.futures
 import logging
-import os
-from dotenv import load_dotenv
 
-load_dotenv('.env')
-
-STR_LINK1 = os.getenv('STR_LINK1')
-STR_LINK2 = os.getenv('STR_LINK2')
-STR_LINK3 = os.getenv('STR_LINK3')
-
-SCRAP_LINK1 = 'https://' + STR_LINK1
-SCRAP_LINK2 = 'https://' + STR_LINK2 + '/'
-SCRAP_LINK3 = 'https://' + STR_LINK3
+SCRAP_LINK1 = 'https://rocketjobs.pl'
+SCRAP_LINK2 = 'https://nofluffjobs.com/'
+SCRAP_LINK3 = 'https://justjoin.it'
 
 
 class LinkProcessor:

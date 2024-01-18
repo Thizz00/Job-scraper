@@ -50,12 +50,6 @@ Job-scraper
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`STR_LINK1` - address of the first page for job search
-
-`STR_LINK2` - address of the second page for job search
-
-`STR_LINK3` - address of the third page for job search
-
 `SCRAP_URL1` - address of the first page for job search with all categories
 
 `SCRAP_URL2` - address of the second page for job search with all categories
