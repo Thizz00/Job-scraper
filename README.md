@@ -14,7 +14,7 @@ In addition, it has the ability to match those offers which are most similar to 
 Clone the project
 
 ```bash
-  git clone https://github.com/Thizz00/Job-scraper-0.0.1.git
+  git clone https://github.com/Thizz00/Job-scraper.git
 ```
 
 ## Installation
