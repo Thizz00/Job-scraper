@@ -5,7 +5,6 @@ import pandas as pd
 def get_technology_stack():
     df = pd.DataFrame(get_all_from_database())
     df = df.apply(lambda col: col.astype(str).str.split(','))
-    print(df)
     return df
 
 def update_tech_stack_column(df):

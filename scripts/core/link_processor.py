@@ -47,11 +47,11 @@ class LinkProcessor:
             html_document = self.get_html_document(url)
             if html_document is not None:
                 soup = BeautifulSoup(html_document, 'html.parser')
-                if STR_LINK1 in url:
+                if SCRAP_LINK1 in url:
                     self.process_first_link_url(soup, url)
-                elif STR_LINK2 in url:
+                elif SCRAP_LINK2 in url:
                     self.process_second_link_url(soup, url)
-                elif STR_LINK3 in url:
+                elif SCRAP_LINK3 in url:
                     self.process_third_link_url(soup, url)
                 logging.info(f"Successfully processed URL: {url}")
         except Exception as e:

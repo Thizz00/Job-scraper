@@ -33,6 +33,7 @@ def generate_first_urls():
         'security', 'data', 'go', 'support', 'erp', 'architecture', 'other'
     ]
     experience_levels = ['junior', 'mid', 'senior', 'c-level']
+                         
     return generate_urls(SCRAP_URL1, categories, experience_levels)
 
 

@@ -1,25 +1,28 @@
 import streamlit as st
 from scripts.resume_checker.data_fetcher import get_all_from_database
+from nltk.stem import PorterStemmer
 
 st.sidebar.markdown("# Display results 🎯")
 
 
+
 def prepare_df(df):
-    category_words = set(word.strip().upper() for word in df['category'] if word is not None)
-    tech_stack_words = set(word.strip().upper() for word in df['tech_stack'] if word is not None)
+    search_words = set()
+    for column in ['category', 'tech_stack']:
+        words = df[column].dropna().str.upper().str.replace(', ', ',').str.split(',')
+        search_words.update(word for sublist in words for word in sublist)
 
-    search_words = list(category_words.union(tech_stack_words))
-    search_words = [word for line in search_words for word in line.replace(', ', ',').split(',')]
+    return list(search_words)
 
-    search_words = list(set(search_words))
-
-    return search_words
 
 def contains_all_search_words(row, selected_search_words):
-    category_words = [word.strip().upper() for word in (row['category'].split(', ') if row['category'] else [])]
-    tech_stack_words = [word.strip().upper() for word in (row['tech_stack'].split(', ') if row['tech_stack'] else [])]
+    category_words = set(word.strip().upper() for word in (row['category'].split(', ') if row['category'] else []))
+    tech_stack_words = set(word.strip().upper() for word in (row['tech_stack'].split(', ') if row['tech_stack'] else []))
 
-    return all(word in category_words or word in tech_stack_words for word in selected_search_words)
+    all_words = category_words.union(tech_stack_words)
+
+    return all(word in all_words for word in selected_search_words)
+
 
 
 
