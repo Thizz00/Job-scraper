@@ -32,7 +32,7 @@ def run_main_job_scraper():
             logging.error(f"Exception occurred: {str(e)}")
             st.error(f"Exception occurred: {str(e)}")
 
-        status.update(label="Job successfully completed!", state="complete", expanded=True)
+        status.update(label="Job successfully completed!", state="complete", expanded=False)
 
 def run_resume_data_processor():
     with st.status("Job enabled.", expanded=False) as status:
@@ -62,14 +62,12 @@ with st.columns(3)[1]:
         run_button = st.button("Run Job")
         if run_button:
             run_main_job_scraper()
-            st.rerun()
 
             
     elif job_name == 'resume_data_processor':
         run_button = st.button("Run Job")
         if run_button:
             run_resume_data_processor()
-            st.rerun()
 
 
     elif job_name == 'job_scraper_scheduler':
@@ -77,5 +75,4 @@ with st.columns(3)[1]:
         run_button = st.button("Run Job")
         if run_button:
             run_job_scraper_scheduler(interval)
-            st.rerun()
 
