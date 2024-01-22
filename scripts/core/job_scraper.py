@@ -60,7 +60,7 @@ class JobScraper:
                     salary = soup.find_all(class_=class_name)
                     if salary:
                         salary_text = ', '.join(
-                            [i.text.replace('\n', ' ').strip() for i in salary])
+                            [i.text.replace('\n', ' ').replace('oblicz netto','').replace('see net','').replace('oblicz "na rękę"','').replace('see take-home','').strip() for i in salary])
                         break
 
 
@@ -95,7 +95,7 @@ class JobScraper:
                                                                         .replace('Type of work', '')
                                                                         .replace('Experience', '')
                                                                         .replace('Employment Type', '')
-                                                                        .replace('Operating mode', '') for i in information_about_the_offer])
+                                                                        .replace('Operating mode', '').strip() for i in information_about_the_offer])
                         information_about_the_offer_text = information_about_the_offer_text.split(
                                 ',')
                         experience_text = information_about_the_offer_text[1]
@@ -108,12 +108,13 @@ class JobScraper:
                     operating_mode_text = 'No data'
                     experience = soup.find_all(class_='d-flex align-items-center')
                     if experience:
-                        experience_text = ','.join(
-                            [i.text.replace('\n', ' ').replace('back to list','').replace('powrót do listy','') for i in experience])
+                        experience_text = ''.join(
+                            [i.text.replace('\n', ' ').replace('back to list','').replace('powrót do listy','').strip() for i in experience])
                     operating_mode = soup.find_all(class_='tw-flex tw-items-center tw-w-full')
                     if operating_mode:
-                        operating_mode_text = ','.join(
-                            [i.text.replace('\n', ' ') for i in operating_mode])
+                        operating_mode_text = ', '.join(
+                            [i.text.replace('\n', ' ').strip()  for i in operating_mode])
+                        
                         
                 job_description_classes_to_search = ['tw-overflow-hidden ng-star-inserted',
                                                         'css-ncc6e2', 'MuiBox-root css-n74wde',

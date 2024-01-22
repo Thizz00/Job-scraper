@@ -32,7 +32,7 @@ def run_main_job_scraper():
             logging.error(f"Exception occurred: {str(e)}")
             st.error(f"Exception occurred: {str(e)}")
 
-        status.update(label="Job successfully completed!", state="complete", expanded=False)
+        status.update(label="Job successfully completed!", state="complete", expanded=True)
 
 def run_resume_data_processor():
     with st.status("Job enabled.", expanded=False) as status:

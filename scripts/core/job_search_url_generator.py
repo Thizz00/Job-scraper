@@ -62,7 +62,7 @@ def generate_all_urls():
     second_urls = generate_second_urls()
     third_urls = generate_third_urls()
 
-    all_urls =  first_urls + second_urls + third_urls
+    all_urls =  third_urls #first_urls + second_urls + third_urls
     return all_urls
 
 
