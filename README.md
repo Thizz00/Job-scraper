@@ -4,7 +4,7 @@
 
 # Job scraper with resume checker 🚀
 
-## A brief description of what this project does:
+## A brief description:
 
 The application allows you to scrape data from the three largest platforms related to job ads.
 In addition, it has the ability to match those offers which are most similar to the user's cv.
