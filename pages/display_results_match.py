@@ -14,6 +14,7 @@ if df is not None and not df.empty:
         column_config={
             "link": st.column_config.LinkColumn(),
         },
+        disabled = ["id","link","tech_stack","matched"],
         hide_index=True,
     )
 

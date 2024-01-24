@@ -43,6 +43,7 @@ if df is not None and not df.empty:
         column_config={
             "link": st.column_config.LinkColumn(),
         },
+        disabled = ["id","category","link","offer","company_name","salary","tech_stack","type_of_work","experience","employment_type","operating_mode","job_description","application_form","scraping_date"],
         hide_index=True,
     )
 

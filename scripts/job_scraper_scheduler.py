@@ -26,14 +26,10 @@ def initialize():
 
 
 def run_module(module_func, module_name):
-    try:
-        logging.info(f"{module_name}: Started")
-        result = module_func()
-        logging.info(f"{module_name}: {'Completed'}")
-        return result
-    except Exception as e:
-        logging.error(f"Error in {module_name}: {e}")
-        return False
+    logging.info(f"{module_name}: Started")
+    result = module_func()
+    logging.info(f"{module_name}: {'Completed'}")
+    return result
 
 
 def process_links():
