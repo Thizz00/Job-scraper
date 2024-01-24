@@ -1,7 +1,10 @@
+<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"/> <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white"/> <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"/>
 
-# Job scraper with resume checker
 
-## A brief description of what this project does:
+
+# Job scraper with resume checker 🚀
+
+## A brief description:
 
 The application allows you to scrape data from the three largest platforms related to job ads.
 In addition, it has the ability to match those offers which are most similar to the user's cv.
@@ -132,8 +135,11 @@ Logs are automatically saved in folder **Logs/logs.txt** as well as after connec
 
 ![App Screenshot](/screenshots/app.png)
 
+## License
 
-## Authors
+This project is licensed under the [MIT License](LICENSE).
+
+## Author
 
 - [@Thizz00](https://github.com/Thizz00)
 
