@@ -2,7 +2,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from src.config.db_data import Base, DATABASE_URL
 from src.config.db_logs import log_collection
-import logging
+
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.logs_configure.logger_config import configure_logger
+
+logger = configure_logger(__name__)
 
 def initialize_database():
     try:
@@ -16,7 +22,7 @@ def initialize_database():
         return None, None
     
 def handle_database_error(error):
-    logging.error(f"Error connecting to the database: {str(error)}")
+    logger.error(f"Error connecting to the database: {str(error)}")
     log_collection.insert_one({
         'level': 'error',
         'message': f"Error connecting to the database: {str(error)}",

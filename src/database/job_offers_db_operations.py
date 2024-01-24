@@ -3,8 +3,14 @@ from src.database.database_initializer import handle_database_error
 from src.config.db_logs import log_collection
 from src.models.job_offer import JobOffer
 from src.schemas.job_offer_schema import JobOfferCreate
-import logging
 from src.logs_configure.mongodb_logs import create_log_entryJobOffers
+
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.logs_configure.logger_config import configure_logger
+
+logger = configure_logger(__name__)
 
 
 def add_data_to_db_all(session, df):
@@ -14,7 +20,7 @@ def add_data_to_db_all(session, df):
                 job_offer_data = JobOfferCreate(**row)
             except ValidationError as e:
                 for error in e.errors():
-                    logging.error(f"Validation error: {error['loc']} - {error['msg']}")
+                    logger.error(f"Validation error: {error['loc']} - {error['msg']}")
                 continue
 
             new_job_offer = create_job_offer_instance(job_offer_data)
@@ -22,12 +28,12 @@ def add_data_to_db_all(session, df):
             
             if existing_offer:
                 update_existing_offer(existing_offer, new_job_offer)
-                logging.info(f"Updated existing job offer in the database: {existing_offer.link}")
+                logger.info(f"Updated existing job offer in the database: {existing_offer.link}")
                 log_entry = create_log_entryJobOffers(existing_offer)
                 log_collection.insert_one(log_entry)
             else:
                 session.add(new_job_offer)
-                logging.info(f"Inserted new job offer into the database: {new_job_offer.link}")
+                logger.info(f"Inserted new job offer into the database: {new_job_offer.link}")
                 log_entry = create_log_entryJobOffers(new_job_offer)
                 log_collection.insert_one(log_entry)
 

@@ -1,20 +1,22 @@
 import streamlit as st
 import subprocess
-from src.logs_configure.logging_setup import initialize_logging
 from scripts.main_job_scraper import process_links, add_data_to_mysql_db, scrape_jobs
 from datetime import datetime
-import logging
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.logs_configure.logger_config import configure_logger
+
+logger = configure_logger(__name__)
 
 st.set_page_config(layout="wide")
 st.sidebar.markdown("# Job scraper 📊")
 
 
-initialize_logging()
-
 def run_main_job_scraper():
     with st.status("Job enabled.", expanded=True) as status:
         try:
-            logging.info("Program starts at {}".format(datetime.now()))
+            logger.info("Program starts at {}".format(datetime.now()))
             st.write("Process links ⏳")
             links = process_links()
             st.write("Process links ✔️")
@@ -27,9 +29,9 @@ def run_main_job_scraper():
             add_data_to_mysql_db(df)
             st.write("Add data to databases ✔️")
 
-            logging.info("Program execution completed at {}".format(datetime.now()))
+            logger.info("Program execution completed at {}".format(datetime.now()))
         except Exception as e:
-            logging.error(f"Exception occurred: {str(e)}")
+            logger.error(f"Exception occurred: {str(e)}")
             st.error(f"Exception occurred: {str(e)}")
 
         status.update(label="Job successfully completed!", state="complete", expanded=False)
@@ -37,12 +39,12 @@ def run_main_job_scraper():
 def run_resume_data_processor():
     with st.status("Job enabled.", expanded=False) as status:
         try:
-            logging.info("Program starts at {}".format(datetime.now()))
+            logger.info("Program starts at {}".format(datetime.now()))
 
             subprocess.run(["python", "scripts/resume_data_processor.py"])
 
             status.update(label="Job successfully completed!", state="complete", expanded=False)
-            logging.info("Program execution completed at {}".format(datetime.now()))
+            logger.info("Program execution completed at {}".format(datetime.now()))
         except Exception as e:
             st.error(f"❌: {str(e)}")
 

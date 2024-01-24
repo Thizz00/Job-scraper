@@ -1,8 +1,15 @@
-import logging
 from src.config.db_logs import log_collection
 from src.logs_configure.mongodb_logs import create_log_entryTechTools
 from src.models.tech_tools import TechTools
 from src.database.database_initializer import handle_database_error
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.logs_configure.logger_config import configure_logger
+
+logger = configure_logger(__name__)
+
+
 
 def add_data_to_database(session, df):
     try:
@@ -12,13 +19,13 @@ def add_data_to_database(session, df):
 
             if existing_offer:
                 update_existing_offer(existing_offer, new_job_offer)
-                logging.info(f"Updated existing job offer in the database: {existing_offer.link}")
+                logger.info(f"Updated existing job offer in the database: {existing_offer.link}")
                 log_entry = create_log_entryTechTools(existing_offer)
                 log_collection.insert_one(log_entry)
 
             else:
                 session.add(new_job_offer)
-                logging.info(f"Inserted new job offer into the database: {new_job_offer.link}")
+                logger.info(f"Inserted new job offer into the database: {new_job_offer.link}")
                 log_entry = create_log_entryTechTools(new_job_offer)
                 log_collection.insert_one(log_entry)
 

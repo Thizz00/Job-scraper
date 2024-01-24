@@ -3,7 +3,13 @@ import pandas as pd
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 import requests
-import logging
+
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.logs_configure.logger_config import configure_logger
+
+logger = configure_logger(__name__)
 
 class JobScraper:
     def __init__(self, links):
@@ -153,13 +159,13 @@ class JobScraper:
                             'application_form': application_form_text ,
                             'scraping_date': scraping_date_text}
 
-                logging.info(f'Successful data scraping for a link: {link}')
+                logger.info(f'Successful data scraping for a link: {link}')
                 return new_row
             else:
-                logging.error(f'Failed to data scraping for link: {link}')
+                logger.error(f'Failed to data scraping for link: {link}')
                 return None
         except requests.RequestException as e:
-            logging.error(f'Error data scraping link {link}: {str(e)}')
+            logger.error(f'Error data scraping link {link}: {str(e)}')
             return None
 
     def scrape_jobs(self):

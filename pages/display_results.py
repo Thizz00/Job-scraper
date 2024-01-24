@@ -1,6 +1,5 @@
 import streamlit as st
 from scripts.resume_checker.data_fetcher import get_all_from_database
-from nltk.stem import PorterStemmer
 
 st.sidebar.markdown("# Display results 🎯")
 

@@ -1,7 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import concurrent.futures
-import logging
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.logs_configure.logger_config import configure_logger
+
+logger = configure_logger(__name__)
 
 SCRAP_LINK1 = 'https://rocketjobs.pl'
 SCRAP_LINK2 = 'https://nofluffjobs.com/'
@@ -48,7 +53,7 @@ class LinkProcessor:
                 self.process_second_link_url(soup, url)
             elif SCRAP_LINK3 in url:
                 self.process_third_link_url(soup, url)
-            logging.info(f"Successfully processed URL: {url}")
+            logger.info(f"Successfully processed URL: {url}")
 
     def process_urls(self):
         with concurrent.futures.ThreadPoolExecutor(max_workers=12) as executor:

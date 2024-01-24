@@ -1,4 +1,3 @@
-
 from pdfminer.high_level import extract_text
 from src.database.database_initializer import initialize_database
 from src.database.tech_tools_db_operations import add_data_to_database

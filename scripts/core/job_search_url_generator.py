@@ -27,13 +27,13 @@ def generate_urls(base_url, categories, experience_levels, page_range=None):
 
 def generate_first_urls():
     categories = [
-        'javascript', 'html', 'php', 'ruby', 'python',
-        'java', 'net', 'scala', 'c', 'mobile', 'testing',
-        'devops', 'admin', 'ux', 'pm', 'game', 'analytics',
-        'security', 'data', 'go', 'support', 'erp', 'architecture', 'other'
+        'javascript'#, 'html', 'php', 'ruby', 'python',
+        #'java', 'net', 'scala', 'c', 'mobile', 'testing',
+        #'devops', 'admin', 'ux', 'pm', 'game', 'analytics',
+        #'security', 'data', 'go', 'support', 'erp', 'architecture', 'other'
     ]
-    experience_levels = ['junior', 'mid', 'senior', 'c-level']
-                         
+    experience_levels = ['junior'#, 'mid', 'senior', 'c-level']
+    ]
     return generate_urls(SCRAP_URL1, categories, experience_levels)
 
 
@@ -62,7 +62,7 @@ def generate_all_urls():
     second_urls = generate_second_urls()
     third_urls = generate_third_urls()
 
-    all_urls =  third_urls #first_urls + second_urls + third_urls
+    all_urls = first_urls# + second_urls + third_urls
     return all_urls
 
 
