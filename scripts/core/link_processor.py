@@ -1,8 +1,8 @@
-import requests
-from bs4 import BeautifulSoup
-import concurrent.futures
 import os
 import sys
+import asyncio
+import aiohttp
+from bs4 import BeautifulSoup
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.logs_configure.logger_config import configure_logger
 
@@ -18,10 +18,14 @@ class LinkProcessor:
         self.urls = urls
         self.scraped_links = set()
 
-    def get_html_document(self, url):
-        response = requests.get(url)
-        response.raise_for_status()
-        return response.text
+    async def get_html_document(self, session, url):
+        try:
+            async with session.get(url) as response:
+                response.raise_for_status()
+                return await response.text()
+        except Exception as e:
+            logger.error(f"Error occurred while fetching URL: {url}, Error: {str(e)}")
+            return None
 
     def process_generic_url(self, soup, url, div_class, link_prefix):
         divs = soup.find_all('div', class_=div_class)
@@ -43,8 +47,8 @@ class LinkProcessor:
         self.process_generic_url(
             soup, url, ['css-2crog7', 'css-10fd0p8'], SCRAP_LINK3)
 
-    def process_url(self, url):
-        html_document = self.get_html_document(url)
+    async def process_url(self, session, url):
+        html_document = await self.get_html_document(session, url)
         if html_document is not None:
             soup = BeautifulSoup(html_document, 'html.parser')
             if SCRAP_LINK1 in url:
@@ -55,9 +59,7 @@ class LinkProcessor:
                 self.process_third_link_url(soup, url)
             logger.info(f"Successfully processed URL: {url}")
 
-    def process_urls(self):
-        with concurrent.futures.ThreadPoolExecutor(max_workers=12) as executor:
-            futures = [executor.submit(self.process_url, url)
-                       for url in self.urls]
-            for future in concurrent.futures.as_completed(futures):
-                future.result()
+    async def process_urls(self):
+        async with aiohttp.ClientSession() as session:
+            tasks = [self.process_url(session, url) for url in self.urls]
+            await asyncio.gather(*tasks)

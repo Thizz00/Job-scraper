@@ -8,6 +8,7 @@ from pathlib import Path
 from resume_checker.update_tech_stack import tech_stack_list
 from resume_checker.text_extraction_utils import convert_list_to_str,add_data_tech_to_db,process_tech_stack_list
 from src.logs_configure.logger_config import configure_logger
+import datetime
 
 logger = configure_logger(__name__)
 
@@ -32,8 +33,9 @@ def find_newest_file(folder_path):
 
 if __name__ == "__main__":
 
+    logger.info("Program starts at {}".format(datetime.now()))
     PATH = find_newest_file('CV') 
     df = process_tech_stack_list(PATH, tech_stack_list)
     df_str = convert_list_to_str(df)
     add_data_tech_to_db(df_str)
-    logger.info('Successfully processed and added data to the database.')
+    logger.info("Program execution completed at {}".format(datetime.now()))

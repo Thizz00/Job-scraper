@@ -1,5 +1,6 @@
 import os
 import sys
+import asyncio
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -17,7 +18,7 @@ logger = configure_logger(__name__)
 def process_links():
     logger.info("Module 1: Link Processing")
     link_processor = LinkProcessor(URLS)
-    link_processor.process_urls()
+    asyncio.run(link_processor.process_urls())
     links = link_processor.scraped_links
     logger.info("Link processing completed.")
     return links

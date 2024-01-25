@@ -1,9 +1,8 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor
 import requests
-
+from concurrent.futures import ThreadPoolExecutor
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -159,7 +158,7 @@ class JobScraper:
                             'application_form': application_form_text ,
                             'scraping_date': scraping_date_text}
 
-                logger.info(f'Successful data scraping for a link: {link}')
+                logger.info(f'Successful data scraping for a link: {link} with {new_row}')
                 return new_row
             else:
                 logger.error(f'Failed to data scraping for link: {link}')
@@ -169,12 +168,10 @@ class JobScraper:
             return None
 
     def scrape_jobs(self):
-        with ThreadPoolExecutor(max_workers=12) as executor:
+        with ThreadPoolExecutor(max_workers=4) as executor:
             job_rows = list(executor.map(self.process_job_link, self.links))
 
         job_rows = [row for row in job_rows if row is not None]
 
         self.df = pd.concat(
             [self.df, pd.DataFrame(job_rows)], ignore_index=True)
-
-

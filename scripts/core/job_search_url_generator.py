@@ -33,7 +33,6 @@ def generate_first_urls():
         'security', 'data', 'go', 'support', 'erp', 'architecture', 'other'
     ]
     experience_levels = ['junior', 'mid', 'senior', 'c-level']
-    
     return generate_urls(SCRAP_URL1, categories, experience_levels)
 
 
@@ -62,7 +61,7 @@ def generate_all_urls():
     second_urls = generate_second_urls()
     third_urls = generate_third_urls()
 
-    all_urls = first_urls + second_urls + third_urls
+    all_urls =  first_urls + second_urls + third_urls
     return all_urls
 
 

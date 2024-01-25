@@ -16,14 +16,15 @@ def initialize_database():
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
         session = Session()
+        log_collection.insert_one({
+        'level': 'info',
+        'message': f"Connected to the database",
+    })
         return engine, session
     except Exception as e:
-        handle_database_error(e)
-        return None, None
-    
-def handle_database_error(error):
-    logger.error(f"Error connecting to the database: {str(error)}")
-    log_collection.insert_one({
+        logger.error(f"Error connecting to the database: {str(e)}")
+        log_collection.insert_one({
         'level': 'error',
-        'message': f"Error connecting to the database: {str(error)}",
+        'message': f"Error connecting to the database: {str(e)}",
     })
+        return None, None
