@@ -116,7 +116,7 @@ In **run_scraper.ps1** set **$currentLocation** to the full path for the directo
    
 2. Under Trigger leave it on Daily and press **repeat the task every**.
 
-3. For Start a Program select **'powershell'** and add arguments full path to **run_scraper.ps1**.
+3. For Start a Program select **'powershell'** and add arguments -windowstyle hidden -file and full path to **run_scraper.ps1**.
 
 ## Command-Line option and argument parsing
 
