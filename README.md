@@ -105,6 +105,19 @@ log_collection = mongo_db['Logs_scraper']
 
 ![App Screenshot](/screenshots/streamlitapp.png)
 
+## Task scheduler Windows
+
+
+Downloading job offer data using the windows scheduler:
+
+In **run_scraper.ps1** set **$currentLocation** to the full path for the directory where the project is placed.
+
+1. Open Task Scheduler by going to **Start**->**Control Panel**->**Administrative Tools**->**Task Scheduler**.
+   
+2. Under Trigger leave it on Daily and press **repeat the task every**.
+
+3. For Start a Program select **'powershell'** and add arguments full path to **run_scraper.ps1**.
+
 ## Command-Line option and argument parsing
 
 If all you need is to display the scraped data in the database then:
