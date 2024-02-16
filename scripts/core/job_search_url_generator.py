@@ -15,8 +15,7 @@ def generate_urls(base_url, categories, experience_levels, page_range=None):
         for experience_level in experience_levels:
             if page_range:
                 for page in page_range:
-                    url = f"{base_url}{
-                        category}/{experience_level}?page={page}"
+                    url = f"{base_url}{category}/{experience_level}?page={page}"
                     url_list.append(url)
             else:
                 url = f"{base_url}{category}/{experience_level}"
