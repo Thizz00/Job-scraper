@@ -1,27 +1,32 @@
 import pytest
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from dotenv import load_dotenv
+
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from dotenv import load_dotenv
+
+from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 
 load_dotenv('.env')
 
 DATABASE_URL_LOGS = os.getenv('DATABASE_URL_LOGS')
 
-client = MongoClient(DATABASE_URL_LOGS, server_api=ServerApi('1'))
-
-def test_mongo_connection():
-    try:
-        mongo_db = client['Logs']
-        log_collection = mongo_db['Logs_scraper']
-
-        assert log_collection.count_documents({}) >= 0
-
-    except Exception as e:
-        pytest.fail(f"Error connecting to the database: {e}")
-
-    finally:
-        client.close()
 
 def test_env_variable_set():
     assert DATABASE_URL_LOGS is not None
+
+
+def test_mongo_connection():
+
+    client = MongoClient(DATABASE_URL_LOGS, server_api=ServerApi('1'))
+
+    mongo_db = client['Logs']
+    log_collection = mongo_db['Logs_scraper']
+
+    assert 'Logs_scraper' in mongo_db.list_collection_names()
+
+    assert log_collection.count_documents({}) >= 0
+
+    client.close()

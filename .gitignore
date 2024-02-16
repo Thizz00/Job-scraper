@@ -1,5 +1,5 @@
 .env
 __pycache__/
-Logs
+*.log
 CV
 view
