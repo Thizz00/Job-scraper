@@ -95,6 +95,13 @@ client = MongoClient(DATABASE_URL_LOGS, server_api=ServerApi('1'))
 mongo_db = client['Logs']
 log_collection = mongo_db['Logs_scraper']
 ```
+
+## Run tests in a directory
+
+```bash
+pytest tests/
+```
+
 ## Streamlit dashboard
 
 ```bash
