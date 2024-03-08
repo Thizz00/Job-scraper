@@ -2,8 +2,6 @@ import argparse
 import subprocess
 import os
 import time 
-folder_path = 'Logs'
-os.makedirs(folder_path, exist_ok=True)
 
 def run_job(job_name):
     subprocess.run(["python", os.path.join("scripts/", f"{job_name}.py")])

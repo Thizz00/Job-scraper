@@ -10,7 +10,9 @@ from resume_checker.text_extraction_utils import convert_list_to_str,add_data_te
 from src.logs_configure.logger_config import configure_logger
 import datetime
 
-logger = configure_logger(__name__)
+logger = configure_logger()
+
+
 
 def find_newest_file(folder_path):
     folder = Path(folder_path)
@@ -34,7 +36,9 @@ def find_newest_file(folder_path):
 if __name__ == "__main__":
 
     logger.info("Program starts at {}".format(datetime.now()))
-    PATH = find_newest_file('CV') 
+    folder_path = 'CV'
+    os.makedirs(folder_path, exist_ok=True)
+    PATH = find_newest_file(folder_path) 
     df = process_tech_stack_list(PATH, tech_stack_list)
     df_str = convert_list_to_str(df)
     add_data_tech_to_db(df_str)

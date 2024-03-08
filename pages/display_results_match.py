@@ -3,7 +3,6 @@ import streamlit as st
 
 st.sidebar.markdown("# Display match results ⚙️")
 
-
 df = get_technologies_from_database()
 
 if df is not None and not df.empty:

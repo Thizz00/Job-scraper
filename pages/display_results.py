@@ -3,8 +3,6 @@ from scripts.resume_checker.data_fetcher import get_all_from_database
 
 st.sidebar.markdown("# Display results 🎯")
 
-
-
 def prepare_df(df):
     search_words = set()
     for column in ['category', 'tech_stack']:
@@ -21,9 +19,6 @@ def contains_all_search_words(row, selected_search_words):
     all_words = category_words.union(tech_stack_words)
 
     return all(word in all_words for word in selected_search_words)
-
-
-
 
 df = get_all_from_database()
 search_words = prepare_df(df)

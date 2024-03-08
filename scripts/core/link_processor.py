@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.logs_configure.logger_config import configure_logger
 
-logger = configure_logger(__name__)
+logger = configure_logger()
 
 SCRAP_LINK1 = 'https://rocketjobs.pl'
 SCRAP_LINK2 = 'https://nofluffjobs.com/'

@@ -9,8 +9,6 @@ def get_technologies_from_database():
 
     return df
 
-
-
 def get_all_from_database():
     query = "SELECT * FROM job_offers ORDER BY scraping_date DESC"
     df = pd.read_sql(query, engine)

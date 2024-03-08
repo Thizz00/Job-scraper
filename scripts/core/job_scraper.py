@@ -8,7 +8,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.logs_configure.logger_config import configure_logger
 
-logger = configure_logger(__name__)
+logger = configure_logger()
 
 class JobScraper:
     def __init__(self, links):
@@ -17,6 +17,7 @@ class JobScraper:
                                         'Salary', 'Tech stack', 'Type of work',
                                         'Experience', 'Employment Type', 'Operating mode',
                                         'Job Description', 'Application form', 'Scraping date'])
+        logger = configure_logger()
     def process_job_link(self, link):
         response = requests.get(link)
         try:

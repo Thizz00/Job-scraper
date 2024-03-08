@@ -5,7 +5,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.logs_configure.logger_config import configure_logger
 
-logger = configure_logger(__name__)
+logger = configure_logger()
 
 
 st.set_page_config(layout="wide")

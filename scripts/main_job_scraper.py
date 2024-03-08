@@ -13,7 +13,7 @@ from scripts.core.job_search_url_generator import URLS
 from datetime import datetime
 from src.logs_configure.logger_config import configure_logger
 
-logger = configure_logger(__name__)
+logger = configure_logger()
 
 def process_links():
     logger.info("Module 1: Link Processing")

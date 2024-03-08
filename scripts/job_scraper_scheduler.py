@@ -12,7 +12,7 @@ import subprocess
 from src.logs_configure.logger_config import configure_logger
 import datetime
 
-logger = configure_logger(__name__)
+logger = configure_logger()
 
 def run_all_modules():
     links = process_links()

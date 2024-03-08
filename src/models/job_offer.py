@@ -5,7 +5,7 @@ class JobOffer(Base):
     __tablename__ = 'job_offers'
     id = Column(Integer, primary_key=True, autoincrement=True)
     category = Column(Text)
-    link = Column(Text(256), unique=True)
+    link = Column(Text(512), unique=True)
     offer = Column(Text)
     company_name = Column(Text)
     salary = Column(Text)
