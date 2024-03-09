@@ -17,7 +17,6 @@ class JobScraper:
                                         'Salary', 'Tech stack', 'Type of work',
                                         'Experience', 'Employment Type', 'Operating mode',
                                         'Job Description', 'Application form', 'Scraping date'])
-        logger = configure_logger()
     def process_job_link(self, link):
         response = requests.get(link)
         try:
